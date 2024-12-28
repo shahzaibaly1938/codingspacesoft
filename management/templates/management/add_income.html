@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %} Add Income | CS2 {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Add Income here</h1>
+  <a href="{% url 'accounts' %}">
+  <button class="btn mr-5">Back to Accounts
+  </button>
+</a>
+</div>
+
+<div class="w-full h-[80vh] overscroll-y-auto flex justify-center">
+  <form method="post" class="w-full h-full flex justify-center">
+<div class="w-[30%] flex flex-col items-center justify-around h-full">
+
+    {% csrf_token %}
+
+      <input type="text" placeholder="Source of Income" name="source" class="input input-bordered w-full max-w-xs" />
+      <input type="number" placeholder="Total Amount" name="amount" class="input input-bordered w-full max-w-xs" />
+      <input type="date" placeholder="Date" name="date" class="input input-bordered w-full max-w-xs" />
+      <textarea name="desc" id="desc" class="input input-bordered w-full max-w-xs" placeholder="Description about Income"></textarea>
+    <button class="btn mt-2" type="submit">Add Income</button>
+
+</div>
+</form>
+</div>
+
+
+
+
+{% endblock %}

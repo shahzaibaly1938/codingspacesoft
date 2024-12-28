@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block title %} Accounts | CS2 {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Accounts Details</h1>
+  <div>
+    <a href="{% url 'add_income' %}"><button class="btn">Add Income</button></a>
+    <a href="{% url 'add_expense' %}"
+      ><button class="btn mr-5">Add Expense</button></a
+    >
+  </div>
+</div>
+
+<div class="w-full h-[70vh] flex justify-center items-center">
+  <div class="w-fit h-fit flex justify-center items-center flex-col">
+    <!-- <h2>Total income : {{total_income}}</h2>
+    <h2>Total expenses : {{total_expenses}}</h2>
+    <h2>Total Balance : {{balance}}</h2>
+    <h2>Monthly income : {{monthly_income}}</h2>
+    <h2>Monthly Expenses : {{monthly_expenses}}</h2> -->
+    <div class="stats stats-vertical lg:stats-horizontal shadow">
+      <div class="stat">
+        <div class="stat-title">Total Income</div>
+        <div class="stat-value">{{total_income}} PKR</div>
+        <div class="stat-desc">Total Income in PKR</div>
+      </div>
+    
+      <div class="stat">
+        <div class="stat-title">Total Expenses</div>
+        <div class="stat-value">{{total_expenses}} PKR</div>
+        <div class="stat-desc">Total Expenses in PKR</div>
+      </div>
+    
+      <div class="stat">
+        <div class="stat-title">Accounts Balance</div>
+        <div class="stat-value">{{balance}} PKR</div>
+        <div class="stat-desc">Total amount in account now</div>
+      </div>
+      
+    </div><br>
+    <div class="stats w-fit stats-vertical lg:stats-horizontal shadow">
+      <div class="stat">
+        <div class="stat-title">Monthly Income</div>
+        <div class="stat-value">{{monthly_income}} PKR</div>
+        <div class="stat-desc">Monthly Income in PKR</div>
+      </div>
+    
+      <div class="stat">
+        <div class="stat-title">Monthly Expenses</div>
+        <div class="stat-value">{{monthly_expenses}} PKR</div>
+        <div class="stat-desc">Monthly Expenses in PKR</div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}

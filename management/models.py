@@ -37,3 +37,30 @@ class MonthlyFee(models.Model):
 
     def __str__(self):
         return f"{self.student.name} - {self.month}-{self.year}"
+
+
+class Income(models.Model):
+    source = models.CharField(max_length=100, help_text="Source of income e.g Students Fee")
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField(default=datetime.now)
+    desc = models.TextField(blank=True, help_text="Additional Deatils about the income source")
+
+    def __str__(self):
+        return f"{self.source} - {self.amount}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=100, help_text="Category e.g Salaries, Investment, Digital Expenses")
+
+    def __str__(self):
+        return self.name
+
+class Expense(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='expenses')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField(default=datetime.now)
+    desc = models.TextField(blank=True, help_text="Details About the Expenses")
+
+    def __str__(self):
+        return f"{self.category} - {self.amount}"
+    
+

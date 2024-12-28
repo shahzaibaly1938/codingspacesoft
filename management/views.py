@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Student, MonthlyFee, Course
+from .models import Student, MonthlyFee, Course, Income, Expense, Category
 from django.contrib import messages
+from datetime import datetime
+from django.db.models import Sum
 
 # Create your views here.
 def home(request):
@@ -28,6 +30,7 @@ def add_monthly_fee(request, student_id):
             is_paid = False
         date_paid = request.POST.get('date_paid')
         MonthlyFee.objects.create(student=student, month=month, year=year, amount=amount, is_paid=is_paid, date_paid=date_paid)
+        Income.objects.create(source=f"Fee Payment by {student.name}", amount=amount, desc=f"Fee Payment by {student.name} - Student Id : {student.id}")
         messages.success(request, 'Fees Submit Successfully')
         redirect('home')
     return render(request, 'management/add_monthly_fee.html', {'student':student})
@@ -46,3 +49,53 @@ def add_student(request):
         redirect('student_list')
     courses = Course.objects.all()
     return render(request, 'management/add_student.html', {'courses':courses})
+
+def accounts_dashboard(request):
+    total_income = Income.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+    total_expenses = Expense.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+    balance =  total_income - total_expenses
+
+    monthly_income =  Income.objects.filter(date__month=datetime.now().month).aggregate(Sum('amount'))['amount__sum'] or 0
+    monthly_expenses = Expense.objects.filter(date__month=datetime.now().month).aggregate(Sum('amount'))['amount__sum'] or 0
+
+    return render(request, 'management/accounts.html', {
+        'total_income':total_income,
+        'total_expenses':total_expenses,
+        'balance':balance,
+        'monthly_income':monthly_income,
+        'monthly_expenses':monthly_expenses,
+    })
+
+
+def add_income(request):
+    if request.method == 'POST':
+        source = request.POST['source']
+        amount = request.POST['amount']
+        date = request.POST['date']
+        desc = request.POST['desc']
+        Income.objects.create(source=source, amount=amount, date=date, desc=desc)
+        messages.success(request, 'Income Added SuccessFully.')
+        return redirect('accounts')
+    return render(request, 'management/add_income.html')
+
+
+def add_expense(request):
+    if request.method == 'POST':
+        category = request.POST['category']
+        amount = request.POST['amount']
+        date = request.POST['date']
+        desc = request.POST['desc']
+        Expense.objects.create(category=Category.objects.get(name=category), amount=amount, date=date, desc=desc)
+        messages.success(request, 'Expense Added SuccessFully.')
+        return redirect('accounts')
+    categorys = Category.objects.all()
+    return render(request, 'management/add_expense.html', {'categorys':categorys})
+
+def add_expense_category(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        Category.objects.create(name=name)
+        messages.success(request, 'Added Expense Category Successfully.')
+        return redirect('add_expense')
+    return render(request, 'management/add_expense_category.html')
+
