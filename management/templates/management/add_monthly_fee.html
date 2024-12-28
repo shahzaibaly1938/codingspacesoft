@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %} The Coding Space Skardu {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Add Monthly Fee for {{ student.name }}</h1>
+  <a href="{% url 'student_detail' student.id %}">
+  <button class="btn mr-5">Back to Details
+  </button>
+</a>
+</div>
+
+<div class="w-full h-[60vh] overscroll-y-auto flex justify-center">
+  <form method="post" class="w-full h-full flex justify-center">
+<div class="w-[30%] flex flex-col items-center justify-around h-full">
+
+    {% csrf_token %}
+    <select name="month" required class="select select-bordered w-full max-w-xs">
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+      </select>
+
+      <input type="number" placeholder="year" name="year" class="input input-bordered w-full max-w-xs" />
+      <input type="number" placeholder="Amount" name="amount" class="input input-bordered w-full max-w-xs" />
+
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text mr-2">Fees Paid?</span>
+          <input type="checkbox" name="is_paid" checked="checked" class="checkbox" />
+        </label>
+      </div>
+
+      <input type="date" placeholder="Date" name="date_paid" class="input input-bordered w-full max-w-xs" />
+
+
+    <button class="btn" type="submit">Submit Fee</button>
+
+</div>
+</form>
+</div>
+
+
+
+
+{% endblock %}

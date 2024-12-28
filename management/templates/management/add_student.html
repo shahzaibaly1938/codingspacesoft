@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %} Add Student | CS2 {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Admission Of New Student</h1>
+  <a href="{% url 'student_list' %}">
+  <button class="btn mr-5">Back to Students
+  </button>
+</a>
+</div>
+
+<div class="w-full h-[80vh] overscroll-y-auto flex justify-center">
+  <form method="post" class="w-full h-full flex justify-center">
+<div class="w-[30%] flex flex-col items-center justify-around h-full">
+
+    {% csrf_token %}
+
+      <input type="text" placeholder="Full Name" name="name" class="input input-bordered w-full max-w-xs" />
+      <input type="text" placeholder="Father's Name" name="father_name" class="input input-bordered w-full max-w-xs" />
+      <input type="tel" placeholder="Phone Number" name="phone_number" class="input input-bordered w-full max-w-xs" />
+      <input type="email" placeholder="Enter your Email" name="email" class="input input-bordered w-full max-w-xs" />
+      <select name="course" required class="select select-bordered w-full max-w-xs">
+        {% for course in courses %}
+        <option>{{course.name}}</option>
+        {% endfor %}
+      </select>
+
+      <input type="number" placeholder="Monthly Fees" name="monthly_fee" class="input input-bordered w-full max-w-xs" />
+
+    <button class="btn mt-2" type="submit">Add Student</button>
+
+</div>
+</form>
+</div>
+
+
+
+
+{% endblock %}
