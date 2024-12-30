@@ -19,6 +19,28 @@
     <h2>Monthly income : {{monthly_income}}</h2>
     <h2>Monthly Expenses : {{monthly_expenses}}</h2> -->
     <div class="stats stats-vertical lg:stats-horizontal shadow">
+    
+      <div class="stat">
+        <div class="stat-title">Accounts Balance</div>
+        <div class="stat-value">{{balance}} PKR</div>
+        <div class="stat-desc">Total amount in account now</div>
+      </div>
+      
+      <div class="stat">
+        <div class="stat-title">{{month}} Income</div>
+        <div class="stat-value">{{monthly_income}} PKR</div>
+        <div class="stat-desc"> {{ month }} Month Income in PKR</div>
+      </div>
+    
+      <div class="stat">
+        <div class="stat-title">{{month}} Expenses</div>
+        <div class="stat-value">{{monthly_expenses}} PKR</div>
+        <div class="stat-desc"> {{ month }} Month Expenses in PKR</div>
+      </div>
+
+    </div>
+    <div class="stats w-fit stats-vertical lg:stats-horizontal shadow">
+      
       <div class="stat">
         <div class="stat-title">Total Income</div>
         <div class="stat-value">{{total_income}} PKR</div>
@@ -29,26 +51,6 @@
         <div class="stat-title">Total Expenses</div>
         <div class="stat-value">{{total_expenses}} PKR</div>
         <div class="stat-desc">Total Expenses in PKR</div>
-      </div>
-    
-      <div class="stat">
-        <div class="stat-title">Accounts Balance</div>
-        <div class="stat-value">{{balance}} PKR</div>
-        <div class="stat-desc">Total amount in account now</div>
-      </div>
-      
-    </div><br>
-    <div class="stats w-fit stats-vertical lg:stats-horizontal shadow">
-      <div class="stat">
-        <div class="stat-title">Monthly Income</div>
-        <div class="stat-value">{{monthly_income}} PKR</div>
-        <div class="stat-desc">Monthly Income in PKR</div>
-      </div>
-    
-      <div class="stat">
-        <div class="stat-title">Monthly Expenses</div>
-        <div class="stat-value">{{monthly_expenses}} PKR</div>
-        <div class="stat-desc">Monthly Expenses in PKR</div>
       </div>
       
     </div>

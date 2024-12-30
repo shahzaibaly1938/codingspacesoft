@@ -15,9 +15,16 @@ class Student(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
+    dob = models.DateField(default=datetime.now)
+    gender = models.CharField(max_length=100, default='')
     phone_number = models.CharField(max_length=15)
+    father_number = models.CharField(max_length=100, default='')
     email = models.EmailField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course')
+    education = models.CharField(max_length=100, default='')
+    address = models.TextField(default='')
+    belongs_to = models.CharField(max_length=100, default='')
+    admission_date = models.DateField(default=datetime.now)
     monthly_fee = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):

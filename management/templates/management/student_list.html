@@ -21,8 +21,9 @@
           <th>Father's Name</th>
           <th>Course</th>
           <th>Phone Number</th>
-          <th>Email</th>
+          <th>Gender</th>
           <th>Monthly Fees</th>
+          <th>Fee Details</th>
         
         </tr>
       </thead>
@@ -36,8 +37,10 @@
           <td>{{student.father_name}}</td>
           <td>{{student.course}}</td>
           <td>{{student.phone_number}}</td>
-          <td>{{student.email}}</td>
+          <td>{{student.gender}}</td>
           <td>{{student.monthly_fee}}</td>
+          <td class="font-bold"><a href="{% url 'fee_detail' student.id %}">Check Fees</a></td>
+
        
         </tr>
         

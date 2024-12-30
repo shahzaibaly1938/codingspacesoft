@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %} The Coding Space Skardu {%endblock%} 
+{% block content %}
+
+<div class="w-full h-fit p-5">
+  <div class="w-full h-fit flex justify-between">
+    <h2 class="text-3xl font-bold">Monthly Fee Records</h2>
+    <a href="{% url 'add_monthly_fee' student.id %}"
+      ><button class="btn">Add Monthly Fee</button></a
+    >
+  </div>
+
+  <h1 class="font-bold">{{ student.name }}</h1>
+  <p>Student ID: <b>{{ student.id }}</b></p>
+  <p>Course: <b>{{ student.course }}</b></p>
+  <p>Monthly Fee: <b> {{ student.monthly_fee }}</b></p>
+</div>
+
+<div class="overflow-x-auto w-full flex justify-between flex-col items-center">
+  <table class="table w-[90%]">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Amount</th>
+        <th>Paid</th>
+        <th>Date of Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      {% for fee in monthly_fees %}
+      <tr class="bg-base-200">
+        <td>{{ fee.month }}</td>
+        <td>{{ fee.year }}</td>
+        <td>{{ fee.amount }}</td>
+        <td>{{ fee.is_paid }}</td>
+        <td>{{ fee.date_paid }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

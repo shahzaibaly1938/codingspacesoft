@@ -3,6 +3,7 @@ from .models import Student, MonthlyFee, Course, Income, Expense, Category
 from django.contrib import messages
 from datetime import datetime
 from django.db.models import Sum
+import calendar
 
 # Create your views here.
 def home(request):
@@ -11,6 +12,11 @@ def home(request):
 def student_list(request):
     students = Student.objects.all()
     return render(request, 'management/student_list.html', {'students':students})
+
+def fee_detail(request, id):
+    student = Student.objects.get(id=id)
+    monthly_fees = student.monthly_fees.order_by('-year', '-month')
+    return render(request, 'management/fee_detail.html', {'student':student, 'monthly_fees':monthly_fees})
 
 def student_detail(request, id):
     student = Student.objects.get(id=id)
@@ -40,11 +46,20 @@ def add_student(request):
     if request.method == 'POST':
         name = request.POST['name']
         father_name = request.POST['father_name']
+        dob = request.POST['dob']
+        gender = request.POST['gender']
+        father_number = request.POST['father_number']
         phone_number = request.POST['phone_number']
         email = request.POST['email']
         course = request.POST.get('course')
+        education = request.POST['education']
+        address = request.POST['address']
+        belongs_to = request.POST['belongs_to']
+        admission_date = request.POST['admission_date']
         monthly_fee = request.POST['monthly_fee']
-        Student.objects.create(name=name, father_name=father_name, phone_number=phone_number, email=email, course=Course.objects.get(name=course), monthly_fee=monthly_fee)
+        Student.objects.create(name=name, father_name=father_name, phone_number=phone_number, email=email, 
+        course=Course.objects.get(name=course), monthly_fee=monthly_fee, dob=dob, gender=gender, father_number=father_number,
+        education=education, address=address, belongs_to=belongs_to, admission_date=admission_date,)
         messages.success(request, 'Student Added Successfully.')
         redirect('student_list')
     courses = Course.objects.all()
@@ -57,13 +72,14 @@ def accounts_dashboard(request):
 
     monthly_income =  Income.objects.filter(date__month=datetime.now().month).aggregate(Sum('amount'))['amount__sum'] or 0
     monthly_expenses = Expense.objects.filter(date__month=datetime.now().month).aggregate(Sum('amount'))['amount__sum'] or 0
-
+    month = datetime.now().strftime("%B")
     return render(request, 'management/accounts.html', {
         'total_income':total_income,
         'total_expenses':total_expenses,
         'balance':balance,
         'monthly_income':monthly_income,
         'monthly_expenses':monthly_expenses,
+        'month':month,
     })
 
 

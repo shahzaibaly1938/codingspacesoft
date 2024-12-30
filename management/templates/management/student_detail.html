@@ -3,16 +3,17 @@
 
 <div class="w-full h-fit p-5">
   <div class="w-full h-fit flex justify-between">
-    <h2 class="text-3xl font-bold">Monthly Fee Records</h2>
+    <h2 class="text-3xl font-bold">Student Details</h2>
     <a href="{% url 'add_monthly_fee' student.id %}"
       ><button class="btn">Add Monthly Fee</button></a
     >
   </div>
 
-  <h1 class="font-bold">{{ student.name }}</h1>
+  <h1 class="font-bold"> Student name : {{ student.name }}</h1>
   <p>Student ID: <b>{{ student.id }}</b></p>
   <p>Course: <b>{{ student.course }}</b></p>
-  <p>Monthly Fee: <b> {{ student.monthly_fee }}</b></p>
+  <p>Monthly Fee: <b> {{ student.monthly_fee }}</b></p><br>
+  <h1 class="font-bold underline underline-offset-4"><a href="{% url 'fee_detail' student.id %}">Check Fees</a></h1>
 </div>
 
 <div class="overflow-x-auto w-full flex justify-between flex-col items-center">
@@ -20,26 +21,58 @@
     <!-- head -->
     <thead>
       <tr>
-        <th>Month</th>
-        <th>Year</th>
-        <th>Amount</th>
-        <th>Paid</th>
-        <th>Date of Paid</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Father Name</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Phone Number</th>
+        <th>Father's Number</th>
+        <th>Email</th>
+        <th>Course</th>
       </tr>
     </thead>
     <tbody>
       <!-- row 1 -->
-      {% for fee in monthly_fees %}
       <tr class="bg-base-200">
-        <td>{{ fee.month }}</td>
-        <td>{{ fee.year }}</td>
-        <td>{{ fee.amount }}</td>
-        <td>{{ fee.is_paid }}</td>
-        <td>{{ fee.date_paid }}</td>
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.father_name }}</td>
+        <td>{{ student.dob }}</td>
+        <td>{{ student.gender }}</td>
+        <td>{{ student.phone_number }}</td>
+        <td>{{ student.father_number }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.course }}</td>
+        
+        
       </tr>
-      {% endfor %}
     </tbody>
   </table>
+  <table class="table w-[90%]">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>Education</th>
+        <th>Address</th>
+        <th>Belongs to</th>
+        <th>Admission date</th>
+        <th>Monthly Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr class="bg-base-200">
+        <td>{{ student.education }}</td>
+        <td>{{ student.address }}</td>
+        <td>{{ student.belongs_to }}</td>
+        <td>{{ student.admission_date }}</td>
+        <td>{{ student.monthly_fee }}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+  
 </div>
 
 {% endblock %}

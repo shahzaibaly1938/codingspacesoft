@@ -4,36 +4,117 @@
 <div class="w-full h-fit flex justify-between">
   <h1 class="text-3xl font-bold ml-5">Admission Of New Student</h1>
   <a href="{% url 'student_list' %}">
-  <button class="btn mr-5">Back to Students
-  </button>
-</a>
+    <button class="btn mr-5">Back to Students</button>
+  </a>
 </div>
 
-<div class="w-full h-[80vh] overscroll-y-auto flex justify-center">
+<div class="w-full h-[150vh] flex justify-center">
   <form method="post" class="w-full h-full flex justify-center">
-<div class="w-[30%] flex flex-col items-center justify-around h-full">
+    <div class="w-[30%] flex flex-col items-center justify-around h-full">
+      {% csrf_token %}
 
-    {% csrf_token %}
-
-      <input type="text" placeholder="Full Name" name="name" class="input input-bordered w-full max-w-xs" />
-      <input type="text" placeholder="Father's Name" name="father_name" class="input input-bordered w-full max-w-xs" />
-      <input type="tel" placeholder="Phone Number" name="phone_number" class="input input-bordered w-full max-w-xs" />
-      <input type="email" placeholder="Enter your Email" name="email" class="input input-bordered w-full max-w-xs" />
-      <select name="course" required class="select select-bordered w-full max-w-xs">
+      <input
+        type="text"
+        placeholder="Full Name"
+        name="name"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <label for="dob">Date of Birth</label>
+      <input
+        type="date"
+        id="dob"
+        placeholder="Date of Birth"
+        name="dob"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <h2>Please Select Your Gender</h2>
+      <div class="w-fit justify-around items-center flex">
+        <input
+        type="radio"
+        id="male"
+        name="gender"
+        class="radio"
+        value="Male"
+      />
+        <label for="male">Male</label>
+      <input
+        type="radio"
+        id="female"
+        name="gender"
+        class="radio ml-5"
+        value="Female"
+      />
+        <label for="female">Female</label>
+      </div>
+      
+      <input
+        type="tel"
+        placeholder="Phone Number"
+        name="phone_number"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <input
+        type="email"
+        placeholder="Enter your Email"
+        name="email"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <input
+        type="text"
+        placeholder="Father's Name"
+        name="father_name"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <input
+        type="tel"
+        placeholder="Father's Number"
+        name="father_number"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <select
+        name="course"
+        required
+        class="select select-bordered w-full max-w-xs"
+      >
         {% for course in courses %}
         <option>{{course.name}}</option>
         {% endfor %}
       </select>
 
-      <input type="number" placeholder="Monthly Fees" name="monthly_fee" class="input input-bordered w-full max-w-xs" />
+      <input
+        type="text"
+        placeholder="Enter your Education"
+        name="education"
+        class="input input-bordered w-full max-w-xs"
+      />
 
-    <button class="btn mt-2" type="submit">Add Student</button>
+      <textarea class="textarea textarea-bordered" placeholder="Address" name="address"></textarea>
 
+      <input
+        type="text"
+        placeholder="From / Belongs to"
+        name="belongs_to"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <label for="admission_date">Admission Date</label>
+      <input
+        type="date"
+        id="admission_date"
+        placeholder="Admission Date"
+        name="admission_date"
+        class="input input-bordered w-full max-w-xs"
+      />
+
+      <input
+        type="number"
+        placeholder="Monthly Fees"
+        name="monthly_fee"
+        class="input input-bordered w-full max-w-xs"
+      />
+
+      <button class="btn mt-2" type="submit">Add Student</button>
+    </div>
+  </form>
 </div>
-</form>
-</div>
-
-
-
 
 {% endblock %}
