@@ -3,7 +3,9 @@ from .models import Student, MonthlyFee, Course, Income, Expense, Category
 from django.contrib import messages
 from datetime import datetime
 from django.db.models import Sum
-import calendar
+from django.db.models import Q
+
+
 
 # Create your views here.
 def home(request):
@@ -36,7 +38,7 @@ def add_monthly_fee(request, student_id):
             is_paid = False
         date_paid = request.POST.get('date_paid')
         MonthlyFee.objects.create(student=student, month=month, year=year, amount=amount, is_paid=is_paid, date_paid=date_paid)
-        Income.objects.create(source=f"Fee Payment by {student.name}", amount=amount, desc=f"Fee Payment by {student.name} - Student Id : {student.id}")
+        Income.objects.create(source=f"Fee Payment by {student.name}", amount=amount, desc=f"Fee Payment by {student.name} - Student Id : {student.id}", date=date_paid)
         messages.success(request, 'Fees Submit Successfully')
         redirect('home')
     return render(request, 'management/add_monthly_fee.html', {'student':student})
@@ -87,7 +89,7 @@ def add_income(request):
     if request.method == 'POST':
         source = request.POST['source']
         amount = request.POST['amount']
-        date = request.POST['date']
+        date = request.POST.get('date')
         desc = request.POST['desc']
         Income.objects.create(source=source, amount=amount, date=date, desc=desc)
         messages.success(request, 'Income Added SuccessFully.')
@@ -114,4 +116,66 @@ def add_expense_category(request):
         messages.success(request, 'Added Expense Category Successfully.')
         return redirect('add_expense')
     return render(request, 'management/add_expense_category.html')
+
+def expense_details(request):
+    expenses = Expense.objects.all()
+    if request.method == 'POST':
+        search = request.POST.get('search', '').strip()
+        date = request.POST.get('date', '').strip()
+        month = request.POST.get('month', '').strip()
+        year = request.POST.get('year', '').strip()
+        amount = request.POST.get('amount', '').strip()
+
+        # filtering on the base on provided fields
+        filters = Q()
+        if search:
+            filters &= Q(category__name__icontains = search) | Q(desc__icontains = search)
+        if date:
+            try:
+                filters &= Q(date = datetime.strptime(date, '%Y-%m-%d').date())
+            except ValueError:
+                pass
+        if month:
+            filters &= Q(date__month = month)
+        if year:
+            filters &= Q(date__year = year)
+
+        if amount:
+            filters &= Q(amount__icontains = amount)
+        expenses = Expense.objects.filter(filters)
+
+    return render(request, 'management/expenses_details.html', {'expenses':expenses})
+
+
+def income_details(request):
+    incomes = Income.objects.all()
+    if request.method == 'POST':
+        search = request.POST.get('search', '').strip()
+        date = request.POST.get('date', '').strip()
+        month = request.POST.get('month', '').strip()
+        year = request.POST.get('year', '').strip()
+        amount = request.POST.get('amount', '').strip()
+
+        # filtering on the base on provided fields
+        filters = Q()
+        if search:
+            filters &= Q(source__icontains = search) | Q(desc__icontains = search)
+        if date:
+            try:
+                filters &= Q(date = datetime.strptime(date, '%Y-%m-%d').date())
+            except ValueError:
+                pass
+        if month:
+            filters &= Q(date__month = month)
+        if year:
+            filters &= Q(date__year = year)
+
+        if amount:
+            filters &= Q(amount__icontains = amount)
+        incomes = Income.objects.filter(filters)
+
+    return render(request, 'management/income_details.html', {'incomes':incomes})
+
+
+# logic to generate Fee Slip
 

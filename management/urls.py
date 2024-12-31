@@ -12,5 +12,8 @@ urlpatterns = [
     path('accounts/add-income/', views.add_income, name='add_income'),
     path('accounts/add-expense/', views.add_expense, name='add_expense'),
     path('accounts/add-expense/category', views.add_expense_category, name='add_expense_category'),
+    path('accounts/expenses-details', views.expense_details, name='expenses_details'),
+    path('accounts/income_details', views.income_details, name='income_details'),
+    
 
 ]

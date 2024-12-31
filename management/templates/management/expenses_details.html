@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block title %} Expenses | CS2 {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Expenses Details</h1>
+  <div>
+    <a href="{% url 'accounts' %}"><button class="btn">Back to Accounts</button></a>
+    <a href="{% url 'add_expense' %}"
+      ><button class="btn mr-5">Add Expense</button></a
+    >
+  </div>
+</div>
+
+<div class="w-full h-[100vh] flex flex-col justify-center items-center">
+
+    <!-- filter form -->
+     <div class="w-[90%] h-fit">
+      <h2 class="text-xl font-bold">Search or Add Filter to Expense</h2>
+      <br>
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="text" name="search" placeholder="Search by Category or Desc" class="input input-bordered w-full max-w-xs" />
+            <input type="date" name="date" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+            <input type="month" name="month" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+            <input type="number" name="number" placeholder="year" class="input input-bordered w-full max-w-xs" />
+            <input type="number" name="amount" placeholder="Amount" class="input input-bordered w-full max-w-xs" />
+            <button type="submit" class="btn">Search</button>
+        </form>
+        <br>
+        <a href="{% url 'expenses_details' %}"><button class="btn">clear filters</button></a>
+     </div>
+     <br><br>
+
+    <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Details</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+             {% for expense in expenses %}
+            <tr>
+              <th>{{expense.date}}</th>
+              <td>{{expense.category}}</td>
+              <td>{{expense.amount}}</td>
+              <td>{{expense.desc}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+</div>
+
+{% endblock %}

@@ -41,17 +41,20 @@
     </div>
     <div class="stats w-fit stats-vertical lg:stats-horizontal shadow">
       
+      <a href="{% url 'income_details' %}">
       <div class="stat">
         <div class="stat-title">Total Income</div>
         <div class="stat-value">{{total_income}} PKR</div>
         <div class="stat-desc">Total Income in PKR</div>
       </div>
+    </a>
     
+      <a href="{% url 'expenses_details' %}">
       <div class="stat">
         <div class="stat-title">Total Expenses</div>
         <div class="stat-value">{{total_expenses}} PKR</div>
         <div class="stat-desc">Total Expenses in PKR</div>
-      </div>
+      </div></a>
       
     </div>
   </div>
