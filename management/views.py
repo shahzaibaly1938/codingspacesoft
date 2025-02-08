@@ -13,7 +13,8 @@ def home(request):
 
 def student_list(request):
     students = Student.objects.all()
-    return render(request, 'management/student_list.html', {'students':students})
+    total_students = len(students)
+    return render(request, 'management/student_list.html', {'students':students, 'total_students':total_students})
 
 def fee_detail(request, id):
     student = Student.objects.get(id=id)
@@ -122,7 +123,7 @@ def expense_details(request):
     if request.method == 'POST':
         search = request.POST.get('search', '').strip()
         date = request.POST.get('date', '').strip()
-        month = request.POST.get('month', '').strip()
+        month_str = request.POST.get('month', '').strip()
         year = request.POST.get('year', '').strip()
         amount = request.POST.get('amount', '').strip()
 
@@ -135,7 +136,8 @@ def expense_details(request):
                 filters &= Q(date = datetime.strptime(date, '%Y-%m-%d').date())
             except ValueError:
                 pass
-        if month:
+        if month_str:
+            year, month = map(int, month_str.split('-')) 
             filters &= Q(date__month = month)
         if year:
             filters &= Q(date__year = year)
