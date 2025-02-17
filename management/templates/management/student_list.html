@@ -8,9 +8,13 @@
     <table class="table w-[90%]">
         <div class="w-full h-fit flex justify-between">
             <h1 class="text-3xl font-bold ml-5">Students List <br> <span class="text-xl font-bold">Total Students : {{total_students}}</span> </h1>
+            <div>
+            <a href="{% url 'due_fees' %}"
+              ><button class="btn mr-5">Due Fees</button></a
+            >
             <a href="{% url 'add_student' %}"
               ><button class="btn mr-5">Add Student</button></a
-            >
+            ></div>
           </div>
         
       <!-- head -->

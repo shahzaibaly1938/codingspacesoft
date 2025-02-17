@@ -179,5 +179,9 @@ def income_details(request):
     return render(request, 'management/income_details.html', {'incomes':incomes})
 
 
-# logic to generate Fee Slip
+# view for due fees
+
+def due_fees(request):
+    
+    return render(request, 'management/due_fees.html')
 
