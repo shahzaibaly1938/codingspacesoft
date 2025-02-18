@@ -15,6 +15,7 @@ urlpatterns = [
     path('accounts/expenses-details', views.expense_details, name='expenses_details'),
     path('accounts/income_details', views.income_details, name='income_details'),
     path('dues/', views.due_fees, name='due_fees'),
-    
+    path('certificate/<int:student_id>/', views.certificate, name='certificate'),
+    path('final-certificate/', views.final_certificate, name='final_certificate'),
 
 ]

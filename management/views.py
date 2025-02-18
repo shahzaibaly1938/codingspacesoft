@@ -185,3 +185,19 @@ def due_fees(request):
     
     return render(request, 'management/due_fees.html')
 
+
+
+def certificate(request, student_id):
+    student = Student.objects.get(id = student_id)
+    return render(request, 'management/certificate.html', {'student':student})
+
+
+def final_certificate(request):
+    if request.method == "POST":
+        student_id = request.POST.get("student_id")
+        date = request.POST.get("date")
+        course = request.POST.get("course")
+        duration = request.POST.get("duration")
+        student = Student.objects.get(id = student_id)
+        return render(request, 'management/final_certificate.html', {'student': student, 'date':date, 'course':course, 'duration':duration})
+    return redirect('certificate')

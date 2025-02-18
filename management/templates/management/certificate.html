@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %} Generate Certificate | CS2 {% endblock %} 
+{% block content %}
+
+<div class="w-full h-fit flex justify-between">
+  <h1 class="text-3xl font-bold ml-5">Generating Certificate for {{ student.name }}</h1>
+  <a href="{% url 'student_detail' student.id %}">
+  <button class="btn mr-5">Back to Student Details
+  </button>
+</a>
+</div>
+
+<div class="w-full h-[60vh] overscroll-y-auto flex justify-center">
+  <form action="{% url 'final_certificate' %}" method="post" class="w-full h-full flex justify-center">
+<div class="w-[30%] flex flex-col items-center justify-around h-full">
+
+    {% csrf_token %}
+      <input type="hidden" name="student_id" class="input input-bordered w-full max-w-xs" value="{{student.id}}" />
+      <input type="date" placeholder="Date" name="date" class="input input-bordered w-full max-w-xs" />
+      <input type="text" placeholder="Course" name="course" class="input input-bordered w-full max-w-xs" />
+      <input type="text" placeholder="Duration" name="duration" class="input input-bordered w-full max-w-xs" />
+
+
+    <button class="btn" type="submit">Generate</button>
+
+
+
+</div>
+</form>
+</div>
+
+
+
+
+{% endblock %}

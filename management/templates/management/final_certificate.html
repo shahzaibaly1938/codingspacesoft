@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerificate</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+
+
+<body class="bg-purple-500">
+
+    <!-- Certificate Container -->
+    <div class="max-w-4xl mx-auto my-10 p-10 bg-white rounded-xl shadow-xl">
+      
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-purple-600">Certificate of Achievement</h1>
+        <p class="text-lg text-purple-500 mt-2">Presented to</p>
+      </div>
+      
+      <!-- Student Name -->
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold text-purple-700">{{student.name}}</h2>
+        <p class="text-xl text-purple-600">For completing the {{course}} . </p>
+      </div>
+      
+      <!-- Details Section -->
+      <div class="mt-8 text-center">
+        <p class="text-lg text-purple-500">This is to certify that the student has successfully completed all requirements for the {{course}} at</p>
+        <h3 class="text-2xl font-semibold text-purple-600 mt-2">Coding Space Skardu</h3>
+        <p class="text-lg text-purple-500 mt-2">Website: <a href="https://codingspaceskardu.com" class="text-purple-600 hover:underline">codingspaceskardu.com</a></p>
+      </div>
+  
+      <!-- Date & Signature -->
+      <div class="mt-12 grid grid-cols-2 gap-8 text-center">
+        <div>
+          <p class="text-lg text-purple-500">Date: {{date}}</p>
+        </div>
+        <div>
+          <p class="text-lg text-purple-500">Instructor Signature:</p>
+          <div class="mt-4 h-24 border-t-2 border-purple-600 flex justify-center">
+            <img src="{% static 'images/signature.png' %}" alt="Signature" width="60%">
+          </div>
+         
+        </div>
+       
+      </div>
+      <p class="text-purple-500 ml-48">Baltistan Public School and College Hassan Colony , Skardu </p>
+  
+    </div>
+  
+  </body>
+
+</html>
